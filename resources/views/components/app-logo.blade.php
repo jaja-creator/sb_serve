@@ -1,0 +1,17 @@
+@props([
+    'sidebar' => false,
+])
+
+@if($sidebar)
+    <flux:sidebar.brand :name="config('app.name', 'SB-Serve')" {{ $attributes }}>
+        <x-slot name="logo" class="flex aspect-square size-8 items-center justify-center rounded-full bg-seal-gold text-ink border-2 border-ink/20">
+            <x-app-logo-icon class="size-5 fill-current" />
+        </x-slot>
+    </flux:sidebar.brand>
+@else
+    <flux:brand :name="config('app.name', 'SB-Serve')" {{ $attributes }}>
+        <x-slot name="logo" class="flex aspect-square size-8 items-center justify-center rounded-full bg-seal-gold text-ink border-2 border-ink/20">
+            <x-app-logo-icon class="size-5 fill-current" />
+        </x-slot>
+    </flux:brand>
+@endif

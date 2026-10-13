@@ -1,0 +1,478 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: 'Source Serif 4', ui-serif, Georgia, serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+    --color-zinc-50: #fafafa;
+    --color-zinc-100: #f5f5f5;
+    --color-zinc-200: #e5e5e5;
+    --color-zinc-300: #d4d4d4;
+    --color-zinc-400: #a3a3a3;
+    --color-zinc-500: #737373;
+    --color-zinc-600: #525252;
+    --color-zinc-700: #404040;
+    --color-zinc-800: #262626;
+    --color-zinc-900: #171717;
+    --color-zinc-950: #0a0a0a;
+
+    /* SB-Serve palette — used as accents, not decoration */
+    --color-ledger-green: #1B4332;
+    --color-ledger-green-dark: #12251C;
+    --color-seal-gold: #B8912A;
+    --color-parchment: #FAFAF8;
+    --color-ink: #1F2421;
+    --color-seal-red: #8B2635;
+    --color-steel: #6B7A75;
+
+    --color-letterhead-navy: #0B2447;
+    --color-letterhead-navy-dark: #071A33;
+
+    --color-accent: var(--color-ledger-green);
+    --color-accent-content: #12251C;
+    --color-accent-foreground: #FFFFFF;
+}
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+
+    body {
+        background-color: var(--color-parchment);
+    }
+
+    h1, h2, h3, h4 {
+        font-family: var(--font-serif);
+        letter-spacing: -0.01em;
+    }
+}
+
+[data-flux-field]:not(ui-radio, ui-checkbox) {
+    @apply grid gap-2;
+}
+
+[data-flux-label] {
+    @apply !mb-0 !leading-tight;
+}
+
+input:focus[data-flux-control],
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+[data-flux-menu] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E5E7EB !important;
+    box-shadow: 0 4px 12px -2px rgba(0,0,0,0.08) !important;
+}
+
+[data-flux-menu-item]:hover {
+    background-color: #F3F4F6 !important;
+}
+
+/* Flat scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #D1D5DB;
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #9CA3AF;
+}
+
+a:not([data-flux-button]) {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+/* ============================================================
+   Every component below is now a plain, flat card:
+   white background, thin border, small shadow, no rotation,
+   no animation, no perforation/stamp/lanyard/watermark effects.
+   Class names are unchanged so no blade files need edits.
+   ============================================================ */
+
+.file-card,
+.catalog-card,
+.printout-slip,
+.gazetteer-page,
+.id-badge-body,
+.log-content,
+.deposit-slip,
+.charter-panel,
+.ledger-book,
+.file-card-body,
+.status-widget,
+.pinned-note {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transform: none !important;
+    padding: 16px;
+}
+
+.file-card:hover,
+.catalog-card:hover,
+.gazetteer-page:hover,
+.charter-panel:hover,
+.status-widget:hover,
+.deposit-slip:hover,
+.log-content:hover {
+    transform: none !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Remove decorative sub-elements entirely */
+.catalog-card-hole,
+.file-card-tab,
+.charter-seal,
+.id-badge-clip,
+.id-badge-lanyard,
+.printout-perforation,
+.ledger-spine,
+.ledger-page-left,
+.ledger-page-right,
+.folder-tab,
+.dropcap-letter,
+.log-wire::before,
+.log-node {
+    display: none !important;
+}
+
+.ledger-book {
+    display: block;
+}
+
+.ledger-page {
+    padding: 0;
+}
+
+.id-badge {
+    margin-top: 0;
+}
+
+.id-badge-photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid #E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #F3F4F6;
+}
+
+.id-badge-inactive {
+    opacity: 0.6;
+}
+
+.id-badge-inactive .id-badge-body {
+    filter: grayscale(40%);
+}
+
+.log-wire {
+    padding-left: 0;
+}
+
+.log-entry {
+    margin-bottom: 8px;
+}
+
+.thumb-index {
+    display: none;
+}
+
+.deposit-slip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 3px solid var(--color-ledger-green);
+}
+
+.deposit-slip-number {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: var(--color-ledger-green);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Vault button → plain button */
+.vault-button {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    background-color: var(--color-ledger-green);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    border: none;
+    transition: background-color 0.15s ease;
+}
+.vault-button:hover {
+    background-color: var(--color-ledger-green-dark);
+    transform: none;
+}
+.vault-button:active {
+    transform: none;
+}
+
+/* Switch panel → plain dark card */
+.switch-panel {
+    background-color: var(--color-ledger-green);
+    background-image: none;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: none;
+}
+
+.lever-switch {
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+    background-color: rgba(255,255,255,0.2);
+    box-shadow: none;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: background-color 0.15s ease;
+}
+.lever-switch-on {
+    justify-content: flex-end;
+    background-color: var(--color-seal-red);
+}
+.lever-knob {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: none;
+    transition: none;
+}
+
+.mini-lever {
+    display: inline-flex;
+    align-items: center;
+    width: 40px;
+    height: 22px;
+    border-radius: 11px;
+    background-color: #D1D5DB;
+    padding: 2px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+.mini-lever-on {
+    background-color: var(--color-ledger-green);
+    justify-content: flex-end;
+}
+.mini-lever-knob {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: none;
+}
+
+/* Photo dropzone — simple, flat */
+.photo-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px 16px;
+    border: 1px dashed #D1D5DB;
+    border-radius: 8px;
+    background-color: #FAFAFA;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+.photo-dropzone:hover {
+    border-color: var(--color-ledger-green);
+}
+.photo-dropzone-filled {
+    padding: 0;
+    border-style: solid;
+    border-color: #E5E7EB;
+}
+.photo-dropzone-preview {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.status-widget {
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    padding: 0;
+}
+.status-widget-bar {
+    width: 4px;
+    flex-shrink: 0;
+}
+.status-widget-body {
+    padding: 12px 14px;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Simple settings nav */
+.settings-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.settings-tab {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #6B7280;
+    transition: background-color 0.15s ease;
+}
+.settings-tab:hover {
+    background-color: #F3F4F6;
+    color: var(--color-ink);
+}
+.settings-tab-active {
+    background-color: #F0F5F2;
+    color: var(--color-ledger-green);
+    font-weight: 600;
+}
+
+/* ============================================================
+   Global text-contrast fix — Flux components default to a
+   lighter text color meant for tinted/dark surfaces. Now that
+   every card is flat white, force sensible dark defaults so
+   nothing needs a manual text-ink override per page.
+   ============================================================ */
+
+   [data-flux-heading] {
+    color: var(--color-ink) !important;
+}
+
+[data-flux-text]:not([variant="danger"]):not([variant="success"]) {
+    color: var(--color-ink) !important;
+}
+
+[data-flux-subheading] {
+    color: var(--color-steel) !important;
+}
+
+/* Ghost/outline buttons: default to dark text, not faded */
+[data-flux-button][data-variant="ghost"],
+[data-flux-button][data-variant="filled"] {
+    color: var(--color-ink) !important;
+}
+
+/* Primary/danger buttons keep their own white text — don't override those */
+[data-flux-button][data-variant="primary"],
+[data-flux-button][data-variant="danger"] {
+    color: #FFFFFF !important;
+}
+
+/* Table column headers */
+[data-flux-table-column] {
+    color: var(--color-ink) !important;
+    font-weight: 600 !important;
+}
+
+/* Table cells default to readable ink, not muted */
+[data-flux-table-cell] {
+    color: var(--color-ink);
+}
+
+/* Select/input labels */
+[data-flux-label] {
+    color: var(--color-ink) !important;
+}
+
+/* Menu items */
+[data-flux-menu-item] {
+    color: var(--color-ink) !important;
+}
+
+/* Avatar initials fallback text */
+[data-flux-avatar] {
+    color: var(--color-ink) !important;
+}
+
+/* Badge/pill default text if not using inline style colors */
+[data-flux-badge]:not([style*="color"]) {
+    color: var(--color-ink) !important;
+}
+
+/* Input/select/textarea field text and values */
+[data-flux-input],
+[data-flux-select],
+[data-flux-textarea] {
+    color: var(--color-ink) !important;
+}
+
+/* Disabled/readonly fields: dimmer but still legible, not near-invisible */
+[data-flux-input]:disabled,
+[data-flux-select]:disabled,
+[data-flux-textarea]:disabled,
+[data-flux-input][readonly] {
+    color: var(--color-steel) !important;
+    -webkit-text-fill-color: var(--color-steel) !important;
+    opacity: 1 !important;
+}
+
+/* Placeholder text stays visibly lighter than real values, but not invisible */
+[data-flux-input]::placeholder,
+[data-flux-textarea]::placeholder {
+    color: #9CA3AF !important;
+}
+
+@keyframes blob-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+.animate-blob {
+    animation: blob-float 12s ease-in-out infinite;
+}
+
+[data-flux-field] [data-flux-label],
+[data-flux-field][data-disabled] [data-flux-label],
+flux\:input[disabled] [data-flux-label],
+flux\:input[readonly] [data-flux-label] {
+    color: var(--color-ink) !important;
+}
